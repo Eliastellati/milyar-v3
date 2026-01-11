@@ -12,6 +12,8 @@
     if (!header || !toggleBtn) return;
     header.classList.toggle("is-open", open);
     toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+
+    document.body.classList.toggle("menu-open", open); // ✅ aggiungi questa
   };
 
   if (toggleBtn) {
@@ -118,3 +120,33 @@
     }
   }
 })();
+
+document.addEventListener("click", (e) => {
+  if (!header?.classList.contains("is-open")) return;
+  const isInsideHeader = e.target.closest(".site-header");
+  if (!isInsideHeader) setMenuOpen(false);
+});
+
+const navMobile = document.getElementById("mobileNav");
+
+const setMenuOpen = (open) => {
+  header.classList.toggle("is-open", open);
+  toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+
+  // ✅ aggiorna altezza menu per posizionare lo scrim sotto
+  if (open && navMobile) {
+    // aspetta un frame così layout/transition sono “settati”
+    requestAnimationFrame(() => {
+      const h = navMobile.getBoundingClientRect().height;
+      document.documentElement.style.setProperty("--mobile-menu-height", `${h}px`);
+    });
+  } else {
+    document.documentElement.style.setProperty("--mobile-menu-height", "0px");
+  }
+};
+
+document.addEventListener("click", (e) => {
+  if (!header.classList.contains("is-open")) return;
+  const inside = e.target.closest(".site-header") || e.target.closest("#mobileNav");
+  if (!inside) setMenuOpen(false);
+});

@@ -874,3 +874,273 @@ img {
     transition: none !important;
   }
 }
+
+/* ===== Mobile dropdown fix ===== */
+@media (max-width: 767px){
+  /* il pannello del menu */
+  .nav--mobile{
+    /* invece di essere “in-flow” dentro l’header, lo rendiamo un panel */
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+
+    /* look coerente con header */
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    /* evita che “esca” dallo schermo */
+    max-height: calc(100svh - var(--header-height));
+    overflow: auto;
+
+    /* stato chiuso */
+    display: block;          /* così non dipende dal flow */
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  /* stato aperto */
+  .site-header.is-open .nav--mobile{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* rendi le voci più “touch friendly” */
+  .nav--mobile .nav__link{
+    display: block;
+    padding: 12px 2px;
+  }
+
+  /* spazio interno del pannello */
+  .nav--mobile__inner{
+    padding: 14px 0 18px; /* puoi aumentare a 18/22 se vuoi */
+  }
+}
+
+/* ===========================
+   LIQUID GLASS MOBILE MENU
+   =========================== */
+@media (max-width: 767px){
+  /* serve per gestire bene i livelli (scrim sotto, menu sopra) */
+  .site-header{
+    isolation: isolate;
+  }
+
+  /* SCRIM: sfondo blurrato dietro al menu (pagina sotto) */
+.site-header::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  /* più “glass” e più scuro per far risaltare il testo */
+  background: rgba(0,0,0,0.40);
+  backdrop-filter: blur(50px) saturate(1.5) contrast(1.1);
+  -webkit-backdrop-filter: blur(34px) saturate(1.5) contrast(1.1);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+
+  .site-header.is-open::before{
+    opacity: 1;
+    pointer-events: auto; /* così l’area sotto è “coperta” (non clicchi cose sotto) */
+  }
+
+  /* porta i contenuti dell’header sopra lo scrim */
+  .header__row{
+    position: relative;
+    z-index: 2;
+  }
+
+  /* PANNELLO MENU: vero dropdown fixed sotto l’header */
+  .nav--mobile{
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    /* liquid glass look */
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+    border-top: 1px solid rgba(255,255,255,0.14);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+
+    /* blur “sul pannello” */
+    backdrop-filter: blur(22px) saturate(1.35);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+
+    /* ombra morbida */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+
+    /* dimensioni + scroll interno */
+    max-height: calc(100svh - var(--header-height));
+    overflow: auto;
+
+    /* anima apertura */
+    display: block;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+
+    /* arrotondatura sotto (effetto “sheet”) */
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+  }
+
+  .site-header.is-open .nav--mobile{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* “Highlight” lucido sopra il pannello */
+  .nav--mobile::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(900px circle at 50% 0%,
+                rgba(255,255,255,0.22), transparent 55%);
+    opacity: 0.55;
+  }
+
+  /* Spazi interni */
+  .nav--mobile__inner{
+    position: relative;
+    z-index: 1;
+    padding: 14px 0 calc(18px + env(safe-area-inset-bottom));
+  }
+
+  /* Link più leggibili e “touch-friendly” */
+  .nav--mobile .nav__link{
+    display: block;
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.88);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+  }
+
+  .nav--mobile .nav__link:hover{
+    color: rgba(255,255,255,0.98);
+  }
+
+  /* micro “pill” on tap/hover */
+  .nav--mobile .nav__link:active{
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* icona menu/close già gestita dalla tua classe is-open */
+  .site-header.is-open .icon--menu{ display: none; }
+  .site-header.is-open .icon--close{ display: block; }
+}
+
+/* Blur reale del contenuto quando menu mobile è aperto */
+body.menu-open .site-main,
+body.menu-open .site-footer{
+  filter: blur(10px);
+  transform: translateZ(0); /* migliora rendering */
+  will-change: filter;
+}
+
+@media (max-width: 767px){
+  .site-header{
+    isolation: isolate;
+  }
+
+  /* SCRIM: parte sotto al menu (quindi NON interferisce col blur del menu) */
+  .site-header::before{
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: calc(var(--header-height) + var(--mobile-menu-height, 0px));
+    bottom: 0;
+    z-index: 0;
+
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+
+  .site-header.is-open::before{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Header row sopra lo scrim */
+  .header__row{
+    position: relative;
+    z-index: 2;
+  }
+
+  /* MENU PANEL: qui avviene il blur del contenuto sotto */
+  .nav--mobile{
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    /* vetro */
+    background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+    border-top: 1px solid rgba(255,255,255,0.16);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+
+    /* ✅ blur vero del contenuto dietro al menu */
+    backdrop-filter: blur(44px) saturate(1.6);
+    -webkit-backdrop-filter: blur(44px) saturate(1.6);
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+
+    max-height: calc(100svh - var(--header-height));
+    overflow: auto;
+
+    display: block;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .site-header.is-open .nav--mobile{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav--mobile__inner{
+    position: relative;
+    z-index: 1;
+    padding: 14px 0 calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .nav--mobile .nav__link{
+    display: block;
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.90);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+  }
+}
+
+
+
+
