@@ -24,13 +24,15 @@
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 50; // intensità
+        data[i + 3] = 45; // intensità grain
       }
       ctx.putImageData(imageData, 0, 0);
     }
   }
 
   if (!header || !toggleBtn || !mobileNav) return;
+
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 
   const updateMobileMenuHeightVar = () => {
     const open = header.classList.contains("is-open");
@@ -51,27 +53,23 @@
   };
 
   toggleBtn.addEventListener("click", () => {
-    const open = header.classList.contains("is-open");
-    setMenuOpen(!open);
+    setMenuOpen(!header.classList.contains("is-open"));
   });
 
-  // Chiudi quando clicchi un link del menu
+  // Chiudi cliccando fuori dall'header
+  document.addEventListener("click", (e) => {
+    if (!header.classList.contains("is-open")) return;
+    if (!e.target.closest(".site-header")) setMenuOpen(false);
+  });
+
+  // Chiudi cliccando un link nel menu mobile
   mobileNav.addEventListener("click", (e) => {
-    const a = e.target.closest("a");
+    const a = e.target.closest('a[href^="#"]');
     if (!a) return;
-    if (a.getAttribute("href")?.startsWith("#")) setMenuOpen(false);
+    setMenuOpen(false);
   });
-
-  // ESC chiude
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setMenuOpen(false);
-  });
-
-  // Recalcola altezza su resize/orientation change
-  window.addEventListener("resize", updateMobileMenuHeightVar);
 
   // Smooth scroll con offset header
-  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -79,16 +77,27 @@
     const href = a.getAttribute("href");
     if (!href || href === "#") return;
 
-    const id = href.replace("#", "");
+    // top
+    if (a.dataset.scroll === "top" || href === "#top") {
+      e.preventDefault();
+      setMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      return;
+    }
+
+    const id = href.slice(1);
     const target = document.getElementById(id);
     if (!target) return;
 
     e.preventDefault();
+    setMenuOpen(false);
 
-    const headerHeight = header.offsetHeight || 0;
+    const headerH = header.offsetHeight || 0;
     const gap = 12;
-    const y = target.getBoundingClientRect().top + window.scrollY - headerHeight - gap;
+    const y = target.getBoundingClientRect().top + window.scrollY - headerH - gap;
 
     window.scrollTo({ top: y, behavior: prefersReducedMotion ? "auto" : "smooth" });
   });
+
+  window.addEventListener("resize", updateMobileMenuHeightVar);
 })();

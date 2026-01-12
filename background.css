@@ -1,0 +1,68 @@
+/* =========================================
+   BACKGROUND (ABSOLUTE) – SPECTRAL + NOISE
+   ========================================= */
+
+/* evita clipping dei blur (prima avevi overflow:hidden su .app) */
+.app{
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* bg resta absolute e segue l’altezza della pagina */
+.bg{
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* contenuto sopra lo sfondo */
+.site-header,
+.site-main,
+.site-footer{
+  position: relative;
+  z-index: 1;
+}
+
+/* Spectral gradient che si ripete lungo tutta la pagina (niente “buchi”) */
+.bg__base{
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(1200px circle at 15% 18vh, rgba(255, 80, 160, 0.22), transparent 62%),
+    radial-gradient(1100px circle at 85% 42vh, rgba(80, 200, 255, 0.18), transparent 62%),
+    radial-gradient(1100px circle at 55% 86vh, rgba(120, 255, 190, 0.14), transparent 64%),
+    conic-gradient(from 220deg at 50% 30vh,
+      rgba(255, 140, 0, 0.12),
+      rgba(255, 0, 150, 0.10),
+      rgba(90, 0, 255, 0.10),
+      rgba(0, 200, 255, 0.10),
+      rgba(0, 255, 160, 0.10),
+      rgba(255, 140, 0, 0.12)
+    ),
+    linear-gradient(180deg, #07070c 0%, #0a0a0f 55%, #07070c 100%);
+
+  /* chiave: ripeti verticalmente così lo sfondo resta “vivo” su tutta la pagina */
+  background-size: 100% 120vh;
+  background-repeat: repeat-y;
+}
+
+/* Noise CSS extra (oltre al canvas, leggero) */
+.bg__base::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+
+  opacity: 0.10;
+  mix-blend-mode: overlay;
+}
