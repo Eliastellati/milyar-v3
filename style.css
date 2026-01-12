@@ -1109,9 +1109,9 @@ body.menu-open .site-footer{
 
     box-shadow: 0 20px 60px rgba(0,0,0,0.45);
 
-    max-height: calc(100svh - var(--header-height));
+   /* max-height: calc(100svh - var(--header-height));*/
     overflow: auto;
-
+    max-height: 100svh
     display: block;
     opacity: 0;
     transform: translateY(-10px);
