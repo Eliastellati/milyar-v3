@@ -969,3 +969,50 @@ img {
     transition: none !important;
   }
 }
+
+/* =========================================
+   FIX BG (absolute) + blobs sempre presenti
+   ========================================= */
+
+/* evita che l'overflow dell'app tagli blur/gradient */
+.app{
+  overflow-x: hidden;
+  overflow-y: visible;
+  isolation: isolate; /* stacking più stabile su mobile */
+}
+
+/* IMPORTANTISSIMO: niente z-index negativo (iOS/backdrop-filter bug) */
+.bg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* porta il contenuto sopra lo sfondo */
+.site-header,
+.site-main,
+.site-footer{
+  position: relative;
+  z-index: 1;
+}
+
+/* gradient “di base” che si ripete lungo tutta la pagina
+   -> così anche tra un blob e l'altro non hai “vuoti” */
+.bg__base{
+  background:
+    radial-gradient(900px circle at 18% 18vh, rgba(124,58,237,0.32), transparent 62%),
+    radial-gradient(850px circle at 82% 58vh, rgba(249,115,22,0.22), transparent 62%),
+    radial-gradient(950px circle at 55% 92vh, rgba(236,72,153,0.18), transparent 65%),
+    linear-gradient(180deg, #07070c 0%, #0a0a0f 55%, #07070c 100%);
+  background-size: 100% 120vh;
+  background-repeat: repeat-y;
+}
+
+/* (opzionale) su mobile rendi i blob div più “distribuiti”
+   così non si concentrano in punti “strani” */
+@media (max-width: 640px){
+  .blob--orange{ top: 55vh; }     /* invece di 30% */
+  .blob--orange2{ top: 14vh; }    /* invece di 10% */
+  .blob--purple2{ bottom: auto; top: 120vh; } /* porta un blob anche più giù */
+}
