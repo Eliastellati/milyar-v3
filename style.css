@@ -96,7 +96,7 @@ img {
 
 /* ✅ FIX: background fixed (blob sempre presenti, mai “tagliati” nello scroll) */
 .bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
