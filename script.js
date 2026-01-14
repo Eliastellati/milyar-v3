@@ -12,37 +12,60 @@
   // Footer year
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Grain overlay (static texture)
+  // Grain overlay (static)
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (ctx) {
-      const size = 1024;
-      canvas.width = size;
-      canvas.height = size;
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
 
-      const imageData = ctx.createImageData(size, size);
-      const data = imageData.data;
+      const draw = () => {
+        const w = canvas.width;
+        const h = canvas.height;
+        const imageData = ctx.createImageData(w, h);
+        const data = imageData.data;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        data[i] = v;
-        data[i + 1] = v;
-        data[i + 2] = v;
-        data[i + 3] = 34;
-      }
+        for (let i = 0; i < data.length; i += 4) {
+          const v = (Math.random() * 255) | 0;
+          data[i] = v;
+          data[i + 1] = v;
+          data[i + 2] = v;
+          // Low alpha so it stays subtle (soft-light blend in CSS)
+          data[i + 3] = Math.random() < 0.55 ? 14 : 24;
+        }
 
-      ctx.putImageData(imageData, 0, 0);
+        ctx.putImageData(imageData, 0, 0);
+      };
+
+      const resize = () => {
+        const w = Math.max(1, Math.floor(window.innerWidth * dpr));
+        const h = Math.max(1, Math.floor(window.innerHeight * dpr));
+        canvas.width = w;
+        canvas.height = h;
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        draw();
+      };
+
+      // Draw once (and redraw only if viewport size changes)
+      resize();
+      window.addEventListener(
+        "resize",
+        () => {
+          window.clearTimeout(window.__grainResizeT);
+          window.__grainResizeT = window.setTimeout(resize, 120);
+        },
+        { passive: true }
+      );
     }
   }
 
+  // --- Mobile nav toggle ---
   if (!header || !toggleBtn || !mobileNav) return;
 
   const setMenuOpen = (open) => {
     header.classList.toggle("is-open", open);
     root.classList.toggle("nav-open", open);
     toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-
-    // Prevent background scroll on mobile
     document.body.style.overflow = open ? "hidden" : "";
   };
 
@@ -86,9 +109,7 @@
 
     const headerH = header.offsetHeight || 0;
     const gap = 14;
-    const y = isTop
-      ? 0
-      : target.getBoundingClientRect().top + window.scrollY - headerH - gap;
+    const y = isTop ? 0 : target.getBoundingClientRect().top + window.scrollY - headerH - gap;
 
     window.scrollTo({ top: y, behavior: prefersReducedMotion ? "auto" : "smooth" });
   });
