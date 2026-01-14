@@ -1,18 +1,22 @@
 (() => {
+  const root = document.documentElement;
   const header = document.querySelector(".site-header");
   const toggleBtn = document.querySelector(".nav-toggle");
   const mobileNav = document.getElementById("mobileNav");
   const yearEl = document.getElementById("year");
   const canvas = document.getElementById("grainCanvas");
 
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // Footer year
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Grain overlay (static)
+  // Grain overlay (static texture)
   if (canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (ctx) {
-      const size = 2048;
+      const size = 1024;
       canvas.width = size;
       canvas.height = size;
 
@@ -20,56 +24,51 @@
       const data = imageData.data;
 
       for (let i = 0; i < data.length; i += 4) {
-        const v = Math.random() * 255;
+        const v = (Math.random() * 255) | 0;
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 45; // intensità grain
+        data[i + 3] = 34;
       }
+
       ctx.putImageData(imageData, 0, 0);
     }
   }
 
   if (!header || !toggleBtn || !mobileNav) return;
 
-  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-
-  const updateMobileMenuHeightVar = () => {
-    const open = header.classList.contains("is-open");
-    if (!open) {
-      document.documentElement.style.setProperty("--mobile-menu-height", "0px");
-      return;
-    }
-    requestAnimationFrame(() => {
-      const h = mobileNav.getBoundingClientRect().height;
-      document.documentElement.style.setProperty("--mobile-menu-height", `${h}px`);
-    });
-  };
-
   const setMenuOpen = (open) => {
     header.classList.toggle("is-open", open);
+    root.classList.toggle("nav-open", open);
     toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    updateMobileMenuHeightVar();
+
+    // Prevent background scroll on mobile
+    document.body.style.overflow = open ? "hidden" : "";
   };
 
   toggleBtn.addEventListener("click", () => {
     setMenuOpen(!header.classList.contains("is-open"));
   });
 
-  // Chiudi cliccando fuori dall'header
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setMenuOpen(false);
+  });
+
+  // Close when clicking outside header/menu
   document.addEventListener("click", (e) => {
     if (!header.classList.contains("is-open")) return;
     if (!e.target.closest(".site-header")) setMenuOpen(false);
   });
 
-  // Chiudi cliccando un link nel menu mobile
+  // Close when clicking a menu link
   mobileNav.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
     setMenuOpen(false);
   });
 
-  // Smooth scroll con offset header
+  // Smooth scroll with header offset
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -77,27 +76,20 @@
     const href = a.getAttribute("href");
     if (!href || href === "#") return;
 
-    // top
-    if (a.dataset.scroll === "top" || href === "#top") {
-      e.preventDefault();
-      setMenuOpen(false);
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
-      return;
-    }
-
-    const id = href.slice(1);
-    const target = document.getElementById(id);
+    const isTop = a.dataset.scroll === "top" || href === "#top";
+    const targetId = isTop ? "top" : href.slice(1);
+    const target = document.getElementById(targetId);
     if (!target) return;
 
     e.preventDefault();
     setMenuOpen(false);
 
     const headerH = header.offsetHeight || 0;
-    const gap = 12;
-    const y = target.getBoundingClientRect().top + window.scrollY - headerH - gap;
+    const gap = 14;
+    const y = isTop
+      ? 0
+      : target.getBoundingClientRect().top + window.scrollY - headerH - gap;
 
     window.scrollTo({ top: y, behavior: prefersReducedMotion ? "auto" : "smooth" });
   });
-
-  window.addEventListener("resize", updateMobileMenuHeightVar);
 })();

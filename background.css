@@ -1,68 +1,110 @@
-/* =========================================
-   BACKGROUND (ABSOLUTE) – SPECTRAL + NOISE
-   ========================================= */
-
-/* evita clipping dei blur (prima avevi overflow:hidden su .app) */
-.app{
-  position: relative;
-  isolation: isolate;
-  overflow-x: hidden;
-  overflow-y: visible;
+body{
+  background: var(--bg);
 }
 
-/* bg resta absolute e segue l’altezza della pagina */
+/* Full-page background layer */
 .bg{
-  position: absolute;
+  position: fixed;
   inset: 0;
-  height: 100%;
-  width: 100%;
   z-index: 0;
   pointer-events: none;
 }
 
-/* contenuto sopra lo sfondo */
-.site-header,
-.site-main,
-.site-footer{
-  position: relative;
-  z-index: 1;
-}
-
-/* Spectral gradient che si ripete lungo tutta la pagina (niente “buchi”) */
+/* Base spectral gradient */
 .bg__base{
   position: absolute;
   inset: 0;
-
   background:
-    radial-gradient(1200px circle at 15% 18vh, rgba(255, 80, 160, 0.22), transparent 62%),
-    radial-gradient(1100px circle at 85% 42vh, rgba(80, 200, 255, 0.18), transparent 62%),
-    radial-gradient(1100px circle at 55% 86vh, rgba(120, 255, 190, 0.14), transparent 64%),
-    conic-gradient(from 220deg at 50% 30vh,
-      rgba(255, 140, 0, 0.12),
-      rgba(255, 0, 150, 0.10),
-      rgba(90, 0, 255, 0.10),
-      rgba(0, 200, 255, 0.10),
-      rgba(0, 255, 160, 0.10),
-      rgba(255, 140, 0, 0.12)
-    ),
+    radial-gradient(1200px circle at 12% 12%, rgba(255, 80, 160, 0.18), transparent 60%),
+    radial-gradient(1100px circle at 86% 30%, rgba(80, 200, 255, 0.16), transparent 60%),
+    radial-gradient(1100px circle at 55% 78%, rgba(120, 255, 190, 0.12), transparent 62%),
+    radial-gradient(1000px circle at 20% 92%, rgba(139, 92, 246, 0.10), transparent 62%),
     linear-gradient(180deg, #07070c 0%, #0a0a0f 55%, #07070c 100%);
-
-  /* chiave: ripeti verticalmente così lo sfondo resta “vivo” su tutta la pagina */
-  background-size: 100% 120vh;
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-/* Noise CSS extra (oltre al canvas, leggero) */
+/* Soft noise overlay (CSS) */
 .bg__base::after{
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
-
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
-  background-repeat: repeat;
   background-size: 220px 220px;
-
+  background-repeat: repeat;
   opacity: 0.10;
   mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Blobs */
+.blob{
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.34;
+  transform: translateZ(0);
+}
+
+.blob--purple{
+  width: 900px;
+  height: 900px;
+  top: -260px;
+  right: -260px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.85) 0%, rgba(91, 33, 182, 0.50) 42%, transparent 70%);
+}
+
+.blob--orange{
+  width: 820px;
+  height: 820px;
+  top: 38%;
+  left: -220px;
+  filter: blur(100px);
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.78) 0%, rgba(234, 88, 12, 0.46) 45%, transparent 72%);
+}
+
+.blob--pink{
+  width: 980px;
+  height: 980px;
+  bottom: -360px;
+  left: 26%;
+  filter: blur(130px);
+  opacity: 0.28;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.72) 0%, rgba(219, 39, 119, 0.40) 45%, transparent 72%);
+}
+
+.blob--purple2{
+  width: 620px;
+  height: 620px;
+  bottom: 16%;
+  left: -180px;
+  filter: blur(96px);
+  opacity: 0.22;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.68) 0%, transparent 62%);
+}
+
+.blob--orange2{
+  width: 520px;
+  height: 520px;
+  top: 14%;
+  left: 44%;
+  filter: blur(86px);
+  opacity: 0.18;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.62) 0%, transparent 62%);
+}
+
+/* Grain canvas */
+.grain-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.70;
+  mix-blend-mode: soft-light;
+}
+
+@media (max-width: 760px){
+  .blob--orange{ top: 58%; }
+  .blob--orange2{ top: 18%; left: 38%; }
+  .blob--purple2{ bottom: -18%; }
 }

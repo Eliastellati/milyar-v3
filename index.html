@@ -1,421 +1,283 @@
 <!doctype html>
 <html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Milyar Group - Innovating, for a better world</title>
-    <meta
-      name="description"
-      content="Riuniamo i migliori talenti per creare team di successo e portare progetti ad alto impatto nei settori del futuro."
-    />
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Milyar Group - Innovating, for a better world</title>
+<meta name="description" content="Riuniamo i migliori talenti per creare team di successo e portare progetti ad alto impatto nei settori del futuro."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./style.rebuilt.css"/>
+<link rel="stylesheet" href="./background.rebuilt.css"/>
+</head>
+<body>
+<div class="app">
+<!-- BACKGROUND -->
+<div aria-hidden="true" class="bg">
+<div class="bg__base"></div>
+<div class="blob blob--purple"></div>
+<div class="blob blob--orange"></div>
+<div class="blob blob--pink"></div>
+<div class="blob blob--purple2"></div>
+<div class="blob blob--orange2"></div>
+<canvas id="grainCanvas" class="grain-canvas" aria-hidden="true"></canvas>
+</div>
 
-    <!-- Font (opzionale). Se vuoi 100% offline, rimuovi e userà system fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,500&display=swap"
-      rel="stylesheet"
-    />
+<!-- HEADER -->
+<header class="site-header" id="top">
+<div class="container header__row">
+<a class="brand" href="#top" data-scroll="top" aria-label="Torna in cima">
+<span class="brand__mark" aria-hidden="true">M</span>
+<span class="brand__name">Milyar Group</span>
+</a>
 
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./background.css" />
-  </head>
+<nav class="nav nav--desktop" aria-label="Navigazione principale">
+<a class="nav__link" href="#projects">Main projects</a>
+<a class="nav__link" href="#side-projects">Side projects</a>
+<a class="nav__link" href="#rnd">R&amp;D</a>
+<a class="nav__link" href="#join">Join us</a>
+<a class="nav__cta" href="#contact">Contattaci</a>
+</nav>
 
-  <body>
-    <div class="app">
-      <!-- BACKGROUND -->
-      <div class="bg" aria-hidden="true">
-        <div class="bg__base"></div>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobileNav">
+<span class="sr-only">Apri menu</span>
+<svg class="icon icon--menu" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+<path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+<svg class="icon icon--close" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</button>
+</div>
 
-        <div class="blob blob--purple"></div>
-        <div class="blob blob--orange"></div>
-        <div class="blob blob--pink"></div>
-        <div class="blob blob--purple2"></div>
-        <div class="blob blob--orange2"></div>
+<nav class="nav nav--mobile" id="mobileNav" aria-label="Menu mobile">
+<div class="container nav--mobile__inner">
+<a class="nav__link" href="#projects">Main projects</a>
+<a class="nav__link" href="#side-projects">Side projects</a>
+<a class="nav__link" href="#rnd">R&amp;D</a>
+<a class="nav__link" href="#join">Join us</a>
+<a class="nav__link" href="#contact">Contattaci</a>
+</div>
+</nav>
+</header>
 
-        <!-- Grain overlay (canvas) -->
-        <canvas id="grainCanvas" class="grain-canvas" aria-hidden="true"></canvas>
-      </div>
+<main class="site-main">
+<!-- HERO -->
+<section class="hero">
+<div class="hero__overlay" aria-hidden="true"></div>
+<div class="container hero__inner">
+<p class="hero__eyebrow">Innovating, for a better world</p>
+<h1 class="hero__title">Innoviamo per un <span class="hero__titleAccent">futuro migliore.</span></h1>
+<p class="hero__subtitle">Vogliamo riunire i migliori talenti, per creare team di successo e portare i nostri progetti a impattare nei principali settori del futuro.</p>
 
-      <!-- HEADER -->
-      <header class="site-header" id="top">
-        <div class="container header__row">
-          <a class="brand" href="#top" data-scroll="top" aria-label="Torna in cima">
-            <span class="brand__mark" aria-hidden="true">M</span>
-            <span class="brand__name">Milyar Group</span>
-          </a>
+<div class="hero__actions">
+<a class="btn btn--primary btn--lg" href="#projects">Esplora i progetti</a>
+<a class="btn btn--outline btn--lg" href="#join">Unisciti al team</a>
+</div>
 
-          <nav class="nav nav--desktop" aria-label="Navigazione principale">
-            <a class="nav__link" href="#projects">Main projects</a>
-            <a class="nav__link" href="#side-projects">Side projects</a>
-            <a class="nav__link" href="#rnd">R&amp;D</a>
-            <a class="nav__link" href="#join">Join us</a>
-            <a class="nav__cta" href="#contact">Contattaci</a>
-          </nav>
+<div class="stats" aria-label="Statistiche">
+<div class="stat">
+<div class="stat__icon" aria-hidden="true">
+<svg class="icon" viewBox="0 0 24 24" fill="none">
+<path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4Z" stroke="currentColor" stroke-width="2"/>
+<path d="M4 20c1.5-3 5-4 8-4s6.5 1 8 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<div class="stat__value">9</div>
+<div class="stat__label">Persone nel team</div>
+</div>
 
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobileNav">
-            <span class="sr-only">Apri menu</span>
-            <!-- Menu icon -->
-            <svg class="icon icon--menu" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M4 6h16M4 12h16M4 18h16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-            <!-- Close icon -->
-            <svg class="icon icon--close" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M18 6 6 18M6 6l12 12"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-          </button>
-        </div>
+<div class="stat">
+<div class="stat__icon" aria-hidden="true">
+<svg class="icon" viewBox="0 0 24 24" fill="none">
+<path d="M12 3l2.2 6.8H21l-5.6 4.1 2.1 6.6L12 16.6 6.5 20.5l2.1-6.6L3 9.8h6.8L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+</svg>
+</div>
+<div class="stat__value">5</div>
+<div class="stat__label">Progetti attivi</div>
+</div>
 
-        <nav class="nav nav--mobile" id="mobileNav" aria-label="Menu mobile">
-          <div class="container nav--mobile__inner">
-            <a class="nav__link" href="#projects">Main projects</a>
-            <a class="nav__link" href="#side-projects">Side projects</a>
-            <a class="nav__link" href="#rnd">R&amp;D</a>
-            <a class="nav__link" href="#join">Join us</a>
-            <a class="nav__link" href="#contact">Contattaci</a>
-          </div>
-        </nav>
-      </header>
+<div class="stat">
+<div class="stat__icon" aria-hidden="true">
+<svg class="icon" viewBox="0 0 24 24" fill="none">
+<path d="M6 19V8M12 19V5M18 19v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+</div>
+<div class="stat__value">3</div>
+<div class="stat__label">Settori strategici</div>
+</div>
+</div>
+</div>
+</section>
 
-      <!-- MAIN -->
-      <main class="site-main">
-        <!-- HERO -->
-        <section class="hero">
-          <div class="hero__overlay" aria-hidden="true"></div>
+<!-- MAIN PROJECTS -->
+<section class="section" id="projects">
+<div class="container">
+<div class="section__head">
+<h2 class="section__title">main<span class="serif-italic">Projects</span></h2>
+<p class="section__sub">Iniziative principali su cui stiamo costruendo impatto e crescita.</p>
+</div>
 
-          <div class="container hero__inner">
-            <p class="hero__eyebrow">Innovating, for a better world</p>
+<div class="stack gap-24">
+<article class="project-card">
+<div class="project-card__media">
+<img src="./images/abfam.png" alt="A.b.f.a.m. - app e community"/>
+<div class="project-card__mediaOverlay" aria-hidden="true"></div>
+</div>
+<div class="project-card__content">
+<div class="badges">
+<span class="badge badge--default">Education</span>
+<span class="badge badge--teal">Community</span>
+</div>
+<h3 class="project-card__title">A.b.f.a.m.</h3>
+<p class="project-card__desc">Un progetto dedicato a rendere l’istruzione più accessibile per chi è in difficoltà, grazie alla raccolta, scambio e rivendita di libri usati.</p>
+<div class="project-card__actions">
+<a class="pill-link" href="#contact">Richiedi info</a>
+</div>
+</div>
+</article>
 
-            <h1 class="hero__title">
-              Innoviamo per un <span class="hero__titleAccent">futuro migliore.</span>
-            </h1>
+<article class="project-card">
+<div class="project-card__media">
+<img src="./images/horeca.png" alt="Ho.re.ca - piattaforma e servizi"/>
+<div class="project-card__mediaOverlay" aria-hidden="true"></div>
+</div>
+<div class="project-card__content">
+<div class="badges">
+<span class="badge badge--default">Hospitality</span>
+<span class="badge badge--pink">B2B</span>
+</div>
+<h3 class="project-card__title">Ho.re.ca.</h3>
+<p class="project-card__desc">Soluzioni e strumenti per il mondo dell’ospitalità: gestione, formazione e innovazione per ristoranti, hotel e attività.</p>
+<div class="project-card__actions">
+<a class="pill-link" href="#contact">Richiedi info</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
 
-            <p class="hero__subtitle">
-              Vogliamo riunire i migliori talenti, per creare team di successo e portare i nostri progetti a impattare
-              nei principali settori del futuro.
-            </p>
+<!-- SIDE PROJECTS -->
+<section class="section section--soft" id="side-projects">
+<div class="container">
+<div class="section__head">
+<h2 class="section__title"><span class="serif-italic">side</span>Projects</h2>
+<p class="section__sub">Progetti satellite che esplorano mercati e tecnologie complementari.</p>
+</div>
 
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#projects">Esplora i progetti</a>
-              <a class="btn btn--outline" href="#join">Collabora con noi</a>
-            </div>
+<div class="grid-3">
+<article class="mini-card">
+<div class="mini-card__media">
+<img src="./images/planey.png" alt="Obiettivi economici"/>
+<div class="mini-card__mediaOverlay" aria-hidden="true"></div>
+</div>
+<div class="mini-card__body">
+<span class="chip chip--purple">Fin and Insur-tech</span>
+<h3 class="mini-card__title">Obiettivi economici</h3>
+<p class="mini-card__desc">Pianifica i tuoi obiettivi economici e trova prodotti assicurativi e finanziari adatti.</p>
+</div>
+</article>
 
-            <div class="stats">
-              <div class="stat">
-                <div class="stat__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="icon">
-                    <path
-                      d="M4 10h11M4 14h11"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M19 6.5a7 7 0 1 0 0 11"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </div>
-                <div class="stat__value">15k</div>
-                <div class="stat__label">Euro raccolti</div>
-              </div>
+<article class="mini-card">
+<div class="mini-card__media">
+<img src="./images/green.png" alt="Energia e sostenibilità"/>
+<div class="mini-card__mediaOverlay" aria-hidden="true"></div>
+</div>
+<div class="mini-card__body">
+<span class="chip chip--blue">Green tech</span>
+<h3 class="mini-card__title">Energia e sostenibilità</h3>
+<p class="mini-card__desc">Soluzioni e servizi per l’efficienza energetica e la transizione sostenibile.</p>
+</div>
+</article>
 
-              <div class="stat">
-                <div class="stat__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="icon">
-                    <path
-                      d="M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0Z"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-                    <path
-                      d="M4 20c1.5-3 5-4 8-4s6.5 1 8 4"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </div>
-                <div class="stat__value">9</div>
-                <div class="stat__label">Persone nel team</div>
-              </div>
+<article class="mini-card">
+<div class="mini-card__media">
+<img src="./images/health.png" alt="Prevenzione e salute"/>
+<div class="mini-card__mediaOverlay" aria-hidden="true"></div>
+</div>
+<div class="mini-card__body">
+<span class="chip chip--orange">Health tech</span>
+<h3 class="mini-card__title">Prevenzione e salute</h3>
+<p class="mini-card__desc">Tecnologie e percorsi per migliorare prevenzione e benessere nel tempo.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
 
-              <div class="stat">
-                <div class="stat__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="icon">
-                    <path
-                      d="M8 12l2 2c1 1 3 1 4 0l2-2"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3 11l4-4 5 5"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M21 11l-4-4-5 5"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-                <div class="stat__value">12</div>
-                <div class="stat__label">Partner e sostenitori</div>
-              </div>
-            </div>
-          </div>
-        </section>
+<!-- R&D -->
+<section class="section" id="rnd">
+<div class="container">
+<div class="section__head section__head--tight">
+<h2 class="section__title">R&amp;<span class="serif-italic">D</span></h2>
+<p class="section__sub">Idee, prototipi e ricerca applicata. Sperimentiamo per portare innovazione reale.</p>
+</div>
+<div class="prose">
+<p>Studiamo e testiamo soluzioni digitali, modelli di business e tecnologie emergenti. Puntiamo su prototipazione rapida, validazione e iterazione.</p>
+<p>Se hai una proposta di collaborazione o vuoi contribuire con competenze tecniche, creative o di prodotto, contattaci.</p>
+</div>
+</div>
+</section>
 
-        <!-- MAIN PROJECTS -->
-        <section class="section" id="projects">
-          <div class="container">
-            <div class="section__head">
-              <h2 class="section__title">
-                main<span class="serif-italic">Projects</span>
-              </h2>
-              <p class="section__sub">Iniziative principali su cui stiamo costruendo impatto e crescita.</p>
-            </div>
+<!-- JOIN -->
+<section class="section section--soft" id="join">
+<div class="container">
+<div class="section__head">
+<h2 class="section__title">join <span class="serif-italic">Us</span></h2>
+<p class="section__sub">Siamo sempre interessati a persone brillanti e gentili. Costruiamo bene, insieme.</p>
+</div>
 
-            <div class="stack gap-24">
-              <!-- A.b.f.a.m. -->
-              <article class="project-card">
-                <div class="project-card__media">
-                  <img src="./images/abfam.png" alt="A.b.f.a.m." />
-                  <div class="project-card__mediaOverlay" aria-hidden="true"></div>
-                </div>
-                <div class="project-card__content">
-                  <div class="badges">
-                    <span class="badge badge--teal">Social Impact</span>
-                    <span class="badge badge--default">NO-PROFIT</span>
-                  </div>
+<div class="grid-3">
+<div class="option-card">
+<h3 class="option-card__title">Design &amp; Brand</h3>
+<p class="option-card__desc">Visual, UI, motion e storytelling. Una direzione estetica forte e coerente.</p>
+</div>
+<div class="option-card">
+<h3 class="option-card__title">Product &amp; Engineering</h3>
+<p class="option-card__desc">Full-stack, data, mobile e prototipazione. Shipping veloce, qualità alta.</p>
+</div>
+<div class="option-card">
+<h3 class="option-card__title">Business &amp; Growth</h3>
+<p class="option-card__desc">Go-to-market, partnership e community. Crescita sostenibile e misurabile.</p>
+</div>
+</div>
+</div>
+</section>
 
-                  <h3 class="project-card__title">A.b.f.a.m.</h3>
-                  <p class="project-card__desc">
-                    A.b.f.a.m. è un'iniziativa nata con l'obiettivo di garantire pasti gratuiti a persone in difficoltà,
-                    grazie alla raccolta, scambio e rivendita di libri usati.
-                  </p>
+<!-- CONTACT -->
+<section class="section" id="contact">
+<div class="container">
+<div class="section__head">
+<h2 class="section__title"><span class="gradient-title">Contattaci</span></h2>
+<p class="section__sub">Scrivici e ti rispondiamo il prima possibile.</p>
+</div>
 
-                  <div class="project-card__actions">
-                    <a class="pill-link" href="#contact">Richiedi info</a>
-                  </div>
-                </div>
-              </article>
+<div class="contact-wrap">
+<div class="contact-card">
+<h3 class="contact-card__title">Milyar Group</h3>
+<p class="contact-card__desc">Vuoi saperne di più sui progetti o proporre una collaborazione? Scrivici e raccontaci cosa hai in mente.</p>
+<p class="contact-card__hint">Email: hello@milyargroup.com</p>
+</div>
+</div>
+</div>
+</section>
+</main>
 
-              <!-- Ho.re.ca. -->
-              <article class="project-card">
-                <div class="project-card__media">
-                  <img src="./images/movida.png" alt="Ho.re.ca. - Nightlife - Intrattenimento" />
-                  <div class="project-card__mediaOverlay" aria-hidden="true"></div>
-                </div>
-                <div class="project-card__content">
-                  <div class="badges">
-                    <span class="badge badge--pink">Event and food-tech</span>
-                  </div>
-
-                  <h3 class="project-card__title">Ho.re.ca. - Nightlife - Intrattenimento</h3>
-                  <p class="project-card__desc">
-                    Un approccio rivoluzionario per trovare, prenotare, condividere e promuovere location ed eventi di
-                    tutto il settore ho.re.ca., nightlife e intrattenimento.
-                  </p>
-
-                  <div class="project-card__actions">
-                    <a class="pill-link" href="#contact">Richiedi info</a>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- SIDE PROJECTS -->
-        <section class="section section--soft" id="side-projects">
-          <div class="container">
-            <div class="section__head">
-              <h2 class="section__title">
-                <span class="serif-italic">side</span>Projects
-              </h2>
-              <p class="section__sub">Progetti satellite che esplorano mercati e tecnologie complementari.</p>
-            </div>
-
-            <div class="grid-3">
-              <article class="mini-card">
-                <div class="mini-card__media">
-                  <img src="./images/mpay.png" alt="POS su smartphone" />
-                  <div class="mini-card__mediaOverlay" aria-hidden="true"></div>
-                </div>
-                <div class="mini-card__body">
-                  <span class="chip chip--orange">Fin-tech</span>
-                  <h3 class="mini-card__title">POS su smartphone</h3>
-                  <p class="mini-card__desc">Il primo POS su smartphone a zero commissioni, per tutti.</p>
-                </div>
-              </article>
-
-              <article class="mini-card">
-                <div class="mini-card__media">
-                  <img src="./images/planey.png" alt="Obiettivi economici" />
-                  <div class="mini-card__mediaOverlay" aria-hidden="true"></div>
-                </div>
-                <div class="mini-card__body">
-                  <span class="chip chip--purple">Fin and Insur-tech</span>
-                  <h3 class="mini-card__title">Obiettivi economici</h3>
-                  <p class="mini-card__desc">
-                    Pianifica i tuoi obiettivi economici e trova prodotti assicurativi e finanziari adatti.
-                  </p>
-                </div>
-              </article>
-
-              <article class="mini-card">
-                <div class="mini-card__media">
-                  <img src="./images/ailearn.png" alt="A.I. Agents" />
-                  <div class="mini-card__mediaOverlay" aria-hidden="true"></div>
-                </div>
-                <div class="mini-card__body">
-                  <span class="chip chip--blue">Artificial Intelligence</span>
-                  <h3 class="mini-card__title">A.I. Agents</h3>
-                  <p class="mini-card__desc">A.I. Agents per l'istruzione.</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- R&D -->
-        <section class="section" id="rnd">
-          <div class="container">
-            <div class="section__head section__head--tight">
-              <h2 class="section__title">
-                <span class="serif-italic">R&amp;D</span>
-              </h2>
-              <p class="section__sub">Ricerca - Sviluppo - Innovazione</p>
-            </div>
-
-            <div class="prose">
-              <p>
-                Dalla costante sete di innovazione, di realizzare progetti che possano cambiare la vita delle persone e
-                dalla collaborazione di persone in linea con i nostri valori, abbiamo deciso di dedicare una sezione allo
-                sviluppo di nuove tecnologie e brevetti di utilita, destinati a diversi settori.
-              </p>
-              <p>
-                Ci impegnamo ogni giorno per sviluppare idee, scoperte e invenzioni che possano generare cambiamento o
-                essere di utilita per tutti.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- JOIN US -->
-        <section class="section section--soft" id="join">
-          <div class="container">
-            <div class="section__head">
-              <h2 class="section__title">
-                <span class="gradient-title">join<span class="serif-italic">Us</span></span>
-              </h2>
-              <p class="section__sub">Tre modi per entrare nella nostra visione.</p>
-            </div>
-
-            <div class="grid-3">
-              <article class="option-card">
-                <h3 class="option-card__title">Investi nei nostri progetti</h3>
-                <p class="option-card__desc">
-                  Richiedi i pitch deck e prendi parte all'anteprima della nostra visione di futuro. Un passo alla volta.
-                </p>
-                <a class="pill-link" href="#contact">Richiedi pitch deck</a>
-              </article>
-
-              <article class="option-card">
-                <h3 class="option-card__title">Entra nel Team</h3>
-                <p class="option-card__desc">
-                  Non cerchiamo solo competenze, ma anche ambizione, condivisione e soprattutto valori.
-                </p>
-                <a class="pill-link" href="#contact">Candidati</a>
-              </article>
-
-              <article class="option-card">
-                <h3 class="option-card__title">Diventa partner</h3>
-                <p class="option-card__desc">
-                  Visibilita e sinergia. Scopri come creiamo valore reciproco all'interno dei nostri progetti.
-                </p>
-                <a class="pill-link" href="#contact">Proponi partnership</a>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section class="section" id="contact">
-          <div class="container">
-            <div class="section__head">
-              <h2 class="section__title">
-                <span class="gradient-title">Contattaci</span>
-              </h2>
-              <p class="section__sub">Scrivici e ti rispondiamo il prima possibile.</p>
-            </div>
-
-            <div class="contact-wrap">
-              <div class="contact-card">
-                <h3 class="contact-card__title">Modulo di contatto</h3>
-                <p class="contact-card__desc">Per richieste, collaborazioni o informazioni sui progetti:</p>
-                <a
-                  class="btn btn--primary btn--lg"
-                  href="https://forms.fillout.com/t/8Nwr4UU5kTus"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Apri il modulo
-                </a>
-                <p class="contact-card__hint">Link esterno: Fillout</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- FOOTER -->
-      <footer class="site-footer">
-        <div class="container footer__row">
-          <div class="footer__brand">
-            <div class="footer__mark" aria-hidden="true">M</div>
-            <div>
-              <div class="footer__name">Milyar Group</div>
-              <div class="footer__copy">
-                Copyright <span id="year"></span> - Innovating, for a better world
-              </div>
-            </div>
-          </div>
-
-          <a class="footer__top" href="#top" data-scroll="top">Torna su</a>
-        </div>
-      </footer>
-    </div>
-
-    <script src="./script.js"></script>
-  </body>
+<footer class="site-footer">
+<div class="container footer__row">
+<div class="footer__brand">
+<div class="footer__mark" aria-hidden="true">M</div>
+<div>
+<div class="footer__name">Milyar Group</div>
+<div class="footer__copy">Copyright <span id="year"></span> - Innovating, for a better world</div>
+</div>
+</div>
+<a class="footer__top" href="#top" data-scroll="top">Torna su</a>
+</div>
+</footer>
+</div>
+<script src="./script.rebuilt.js" defer></script>
+</body>
 </html>
